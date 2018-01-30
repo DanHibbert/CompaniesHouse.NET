@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CompaniesHouse.Tests.ResourceBuilders.CompanyFilingHistoryResource;
+﻿using System.Linq;
+using CompaniesHouse.Response.CompanyPersonsWithSignificantControl;
 
 namespace CompaniesHouse.Tests.ResourceBuilders.CompanyPersonsWithSignificantControlResource
 {
@@ -62,35 +61,36 @@ namespace CompaniesHouse.Tests.ResourceBuilders.CompanyPersonsWithSignificantCon
             ""premises"" : ""{item.Address.Premises}"",
             ""region"" : ""{item.Address.Region}""
          }},
-         ""ceased_on"" : ""{item.}"",
-         ""country_of_residence"" : ""string"",
+         ""ceased_on"" : ""{item.CeasedOn}"",
+         ""country_of_residence"" : ""{item.CountryOfResidence}"",
          ""date_of_birth"" : {{
-            ""day"" : ""integer"",
-            ""month"" : ""integer"",
-            ""year"" : ""integer""
+            ""day"" : ""{item.DateOfBirth.Day}"",
+            ""month"" : ""{item.DateOfBirth.Month}"",
+            ""year"" : ""{item.DateOfBirth.Year}""
          }},
-         ""etag"" : ""string"",
+         ""etag"" : ""{item.Etag}"",
          ""links"" : {{
-            ""self"" : ""string"",
-            ""statement"" : ""string""
+            ""self"" : ""{item.IndividualLinks.Self}"",
+            ""statement"" : ""{item.IndividualLinks.Statement}""
          }},
-         ""name"" : ""string"",
+         ""name"" : ""{item.Name}"",
          ""name_elements"" : {{
-            ""forename"" : ""string"",
-            ""other_forenames"" : ""string"",
-            ""surname"" : ""string"",
-            ""title"" : ""string""
+            ""forename"" : ""{item.NameElements.Forename}"",
+            ""other_forenames"" : ""{item.NameElements.OtherForenames}"",
+            ""surname"" : ""{item.NameElements.Surname}"",
+            ""title"" : ""{item.NameElements.Title}""
          }},
-         ""nationality"" : ""string"",
+         ""nationality"" : ""{item.Nationality}"",
          ""natures_of_control"" : [
-            ""string""
+            {string.Join(",", item.NaturesOfControl.Select(GetNaturesOfControlBlock))}
          ],
          ""notified_on"" : ""date""
       }}";
         }
 
-      
-
-
+        private string GetNaturesOfControlBlock(NaturesOfControlType naturesOfControlType)
+        {
+            return naturesOfControlType.ToString();
+        }
     }
 }

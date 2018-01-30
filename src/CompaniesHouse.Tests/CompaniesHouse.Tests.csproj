@@ -60,6 +60,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -69,6 +70,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompaniesHouseCompanyChargesClientTests\CompaniesHouseCompanyChargesClientTestCase.cs" />
+    <Compile Include="CompaniesHouseCompanyChargesClientTests\CompaniesHouseCompanyChargesClientTests.cs" />
+    <Compile Include="CompaniesHouseCompanyChargesClientTests\CompanyChargesBuilder.cs" />
     <Compile Include="CompaniesHouseOfficersTests\CompaniesHouseCompanyOfficersClientTests.cs" />
     <Compile Include="CompaniesHouseOfficersTests\OfficersBuilder.cs" />
     <Compile Include="CompaniesHouseCompanyFilingHistoryClientTests\CompaniesHouseCompanyFilingHistoryClientTests.cs" />
@@ -80,9 +84,21 @@
     <Compile Include="MapProviders\FilingHistoryStatusMapProvider.cs" />
     <Compile Include="MapProviders\FilingSubcategoriesMapProvider.cs" />
     <Compile Include="MapProviders\ResolutionCategoriesMapProvider.cs" />
-    <Compile Include="CompaniesHousePersonsWithSignificantControlTests\CompaniesHouseCompanyOfficersClientTests.cs" />
-    <Compile Include="CompaniesHousePersonsWithSignificantControlTests\OfficersBuilder.cs" />
+    <Compile Include="CompaniesHousePersonsWithSignificantControlTests\CompaniesHousePersonsWithSignificantControlTestsClientTests.cs" />
+    <Compile Include="CompaniesHousePersonsWithSignificantControlTests\CompaniesHousePersonsWithSignificantControlBuilder.cs" />
+    <Compile Include="ResourceBuilders\CompanyChargesResource\CaseLinks.cs" />
+    <Compile Include="ResourceBuilders\CompanyChargesResource\ChargeItem.cs" />
+    <Compile Include="ResourceBuilders\CompanyChargesResource\Classification.cs" />
+    <Compile Include="ResourceBuilders\CompanyChargesResource\CompanyCharges.cs" />
     <Compile Include="ResourceBuilders\CompanyChargesResource\CompanyChargesResourceBuilder.cs" />
+    <Compile Include="ResourceBuilders\CompanyChargesResource\InsolvencyCases.cs" />
+    <Compile Include="ResourceBuilders\CompanyChargesResource\Links.cs" />
+    <Compile Include="ResourceBuilders\CompanyChargesResource\Particulars.cs" />
+    <Compile Include="ResourceBuilders\CompanyChargesResource\PersonsEntitled.cs" />
+    <Compile Include="ResourceBuilders\CompanyChargesResource\ScottishAlterations.cs" />
+    <Compile Include="ResourceBuilders\CompanyChargesResource\SecuredDetails.cs" />
+    <Compile Include="ResourceBuilders\CompanyChargesResource\Transaction.cs" />
+    <Compile Include="ResourceBuilders\CompanyChargesResource\TransactionLinks.cs" />
     <Compile Include="ResourceBuilders\CompanyFilingHistoryResource\CompanyFilingHistoryResourceBuilder.cs" />
     <Compile Include="CompaniesHouseCompanyProfileClientTests\CompaniesHouseCompanyProfileClientTestCase.cs" />
     <Compile Include="CompaniesHouseCompanyProfileClientTests\CompaniesHouseCompanyProfileClientTests.cs" />
@@ -101,7 +117,34 @@
     <Compile Include="ResourceBuilders\AccountingReferenceDate.cs" />
     <Compile Include="ResourceBuilders\Accounts.cs" />
     <Compile Include="ResourceBuilders\CompanyFilingHistoryResource\AnnualReturn.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Address.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\CompanyPersonsWithSignificantControl.cs" />
     <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\CompanyPersonsWithSignificantControlResourceBuilder.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Corporate\Address.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Corporate\CorporateEntity.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Corporate\Identification.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Corporate\Links.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\DateOfBirth.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Error\Error.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Error\Errors.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Error\PersonsWithSignificantControlErrorValues.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Legal\Address.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Legal\Identification.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Legal\LegalPerson.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Legal\Links.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Legal\LegalPersonResourceBuilder.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Links.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Name.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\PersonWithSignificantControlItem.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Statements\Link.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Statements\ListLink.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Statements\StatementItem.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\Statements\StatementList.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\SuperSecure\SuperSecurePersonDescriptionType.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\SuperSecure\SuperSecurePersonResourceBuilder.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\SuperSecure\Links.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\SuperSecure\SuperSecurePerson.cs" />
+    <Compile Include="ResourceBuilders\CompanyPersonsWithSignificantControlResource\SuperSecure\SuperSecurePersonType.cs" />
     <Compile Include="ResourceBuilders\CompanySearchResource\CompanyDetails.cs" />
     <Compile Include="CompaniesHouseSearchClientTests\CompaniesHouseSearchClientTestsForCompanySearch.cs" />
     <Compile Include="ResourceBuilders\CompanyFilingHistoryResource\CompanyFilingHistory.cs" />

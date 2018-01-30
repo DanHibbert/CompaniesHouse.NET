@@ -1,108 +1,121 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CompaniesHouse.Tests.ResourceBuilders.CompanyFilingHistoryResource;
 
 namespace CompaniesHouse.Tests.ResourceBuilders.CompanyChargesResource
 {
     public class CompanyChargesResourceBuilder
     {
-        private readonly CompanyFilingHistory _companyFilingHistory;
+        private readonly CompanyCharges _companyCharges;
 
-        public CompanyChargesResourceBuilder(CompanyFilingHistory companyFilingHistory)
+        public CompanyChargesResourceBuilder(CompanyCharges companyCharges)
         {
-            _companyFilingHistory = companyFilingHistory;
+            _companyCharges = companyCharges;
         }
 
         public string Create()
         {
             return $@"{{
-                       ""etag"" : ""{_companyFilingHistory.ETag}"",
-                       ""filing_history_status"" : ""{_companyFilingHistory.HistoryStatus}"",
-                       ""items"" : [
-                           {string.Join(",", _companyFilingHistory.Items.Select(GetItemJsonBlock))}
-                       ],
-                       ""items_per_page"" : ""{_companyFilingHistory.ItemsPerPage}"",
-                       ""kind"" : ""{_companyFilingHistory.Kind}"",
-                       ""start_index"" : ""{_companyFilingHistory.StartIndex}"",
-                       ""total_count"" : ""{_companyFilingHistory.TotalCount}""
-                    }}";
+   ""etag"" : ""{_companyCharges.Etag}"",
+   ""items"" : [
+  {string.Join(",", _companyCharges.Items.Select(GetItemJsonBlock))}
+   ],
+   ""part_satisfied_count"" : ""{_companyCharges.PartSatisfiedCount}"",
+   ""satisfied_count"" : ""{_companyCharges.SatisfiedCount}"",
+   ""total_count"" : ""{_companyCharges.TotalCount}"",
+   ""unfiletered_count"" : ""{_companyCharges.UnfilteredCount}""
+}}";
         }
 
-        private string GetItemJsonBlock(FilingHistoryItem item)
+        private string GetItemJsonBlock(ChargeItem item)
         {
             return $@"{{
-                         ""annotations"" : [
-                           {string.Join(",", item.Annotations.Select(GetAnnotationJsonBlock))}
-                         ],
-                         ""associated_filings"" : [
-                           {string.Join(",", item.AssociatedFilings.Select(GetAssociatedFilingJsonBlock))}
-                         ],
-                         ""barcode"" : ""{item.Barcode}"",
-                         ""category"" : ""{item.Category}"",
-                         ""date"" : ""{item.DateOfProcessing.ToString("yyyy-MM-dd")}"",
-                         ""description"" : ""{item.Description}"",
-                         ""description_values"" : {{
-                            {string.Join(",", item.DescriptionValues.Select(GetDictionaryJsonBlock))}
-                         }},
-                         ""links"" : {{
-                            ""document_metadata"" : ""{item.Links.DocumentMetaData}"",
-                            ""self"" : ""{item.Links.Self}""
-                         }},
-                         ""pages"" : ""{item.PageCount}"",
-                         ""paper_filed"" : ""{item.PaperFiled}"",
-                         ""resolutions"" : [
-                           {string.Join(",", item.Resolutions.Select(GetResolutionJsonBlock))}
-                         ],
-                         ""subcategory"" : ""{item.Subcategory}"",
-                         ""transaction_id"" : ""{item.TransactionId}"",
-                         ""type"" : ""{item.FilingType}""
-                      }}";
+         ""acquired_on"" : ""{item.AcquiredOn}"",
+         ""assets_ceased_released"" : ""{item.AssetsCeasedReleased}"",
+         ""charge_code"" : ""{item.ChargeCode}"",
+         ""charge_number"" : ""{item.ChargeNumber}"",
+         ""classification"" : {{
+            ""description"" : ""{item.Classification.Description}"",
+            ""type"" : ""{item.Classification.Type}""
+         }},
+         ""covering_instrument_date"" : ""{item.CoveringInstrumentDate}"",
+         ""created_on"" : ""{item.CreatedOn}"",
+         ""delivered_on"" : ""{item.DeliveredOn}"",
+         ""etag"" : ""{item.Etag}"",
+         ""id"" : ""{item.Id}"",
+         ""insolvency_cases"" : [
+  {string.Join(",", item.InsolvencyCases.Select(GetInsolvencyBlock))}
+         ],
+         ""links"" : {{
+            ""self"" : ""{item.Links.Self}""
+         }},
+         ""more_than_four_persons_entitled"" : ""{item.MoreThanFourPersonsEntitled}"",
+         ""particulars"" : {{
+            ""chargor_acting_as_bare_trustee"" : ""{item.Particulars.ChargorActingAsBareTrustee}"",
+            ""contains_fixed_charge"" : ""{item.Particulars.ContainsFixedCharge}"",
+            ""contains_floating_charge"" : ""{item.Particulars.ContainsFloatingCharge}"",
+            ""contains_negative_pledge"" : ""{item.Particulars.ContainsNegativePledge}"",
+            ""description"" : ""{item.Particulars.Description}"",
+            ""floating_charge_covers_all"" : ""{item.Particulars.FloatingChargeCoversAll}"",
+            ""type"" : ""{item.Particulars.Type}""
+         }},
+         ""persons_entitled"" : [
+  {string.Join(",", item.PersonsEntitled.Select(GetPersonsEntitleBlock))}
+         ],
+         ""resolved_on"" : ""{item.ResolvedOn}"",
+         ""satisfied_on"" : ""{item.SatisfiedOn}"",
+         ""scottish_alterations"" : {{
+            ""has_alterations_to_order"" : ""{item.ScottishAlterations.HasAlterationsToOrder}"",
+            ""has_alterations_to_prohibitions"" : ""{item.ScottishAlterations.HasAlterationsToProhibitions}"",
+            ""has_restricting_provisions"" : ""{item.ScottishAlterations.HasRestrictingProvisions}""
+         }},
+         ""secured_details"" : {{
+            ""description"" : ""{item.SecuredDetails.Description}"",
+            ""type"" : ""{item.SecuredDetails.Type}""
+         }},
+         ""status"" : ""{item.Status}"",
+         ""transactions"" : [
+  {string.Join(",", item.Transactions.Select(GetTransactionsBlock))}
+         ]
+      }}
+";
         }
+
+        private object GetTransactionsBlock(Transaction transaction)
+        {
+            return $@"            {{
+               ""delivered_on"" : ""{transaction.DeliveredOn}"",
+               ""filing_type"" : ""{transaction.FilingType}"",
+               ""insolvency_case_number"" : ""{transaction.InsolvencyCaseNumber}"",
+               ""links"" : {{
+                  ""filing"" : ""{transaction.Links.Filing}"",
+                  ""insolvency_case"" : ""{transaction.Links.InsolvencyCase}""
+               }},
+               ""transaction_id"" : ""{transaction.TransactionId}""
+            }}
+";
+        }
+
+        private object GetPersonsEntitleBlock(PersonsEntitled personEntitled)
+        {
+            return $@"{{
+               ""name"" : ""{personEntitled.Name}""
+            }}";        }
+
+        private object GetInsolvencyBlock(InsolvencyCases insolvencyCase)
+        {
+            return $@"{{
+               ""case_number"" : ""{insolvencyCase.CaseNumber}"",
+               ""links"" : {{
+                  ""case"" : ""{insolvencyCase.Links.Case}""
+               }},
+               ""transaction_id"" : ""{insolvencyCase.TransactionId}""
+            }}
+";        }
 
         private string GetDictionaryJsonBlock(KeyValuePair<string, string> pair)
         {
             return $@"""{pair.Key}"" : ""{pair.Value}""";
         }
-
-        private string GetAnnotationJsonBlock(FilingHistoryItemAnnotation annotation)
-        {
-            return $@"{{
-                         ""annotation"" : ""{annotation.Annotation}"",
-                         ""date"" : ""{annotation.DateOfAnnotation.ToString("yyyy-MM-dd")}"",
-                         ""description"" : ""{annotation.Description}"",
-                         ""description_values"" : {{
-                            {string.Join(",", annotation.DescriptionValues.Select(GetDictionaryJsonBlock))}
-                         }}
-                      }}";
-        }
-
-        private string GetAssociatedFilingJsonBlock(FilingHistoryItemAssociatedFiling associated)
-        {
-            return $@"{{
-                         ""date"" : ""{associated.Date.ToString("yyyy-MM-dd")}"",
-                         ""description"" : ""{associated.Description}"",
-                         ""type"" : ""{associated.FilingType}"",
-                         ""description_values"" : {{
-                            {string.Join(",", associated.DescriptionValues.Select(GetDictionaryJsonBlock))}
-                         }}
-                      }}";
-        }
-
-        private string GetResolutionJsonBlock(FilingHistoryItemResolution resolution)
-        {
-            return $@"{{
-                         ""category"" : ""{resolution.Category}"",
-                         ""description"" : ""{resolution.Description}"",
-                         ""document_id"" : ""{resolution.DocumentId}"",
-                         ""receive_date"" : ""{resolution.DateOfProcessing.ToString("yyyy-MM-dd")}"",
-                         ""subcategory"" : ""{resolution.Subcategory}"",
-                         ""type"" : ""{resolution.ResolutionType}"",
-                         ""description_values"" : {{
-                            {string.Join(",", resolution.DescriptionValues.Select(GetDictionaryJsonBlock))}
-                         }}
-                      }}";
-        }
-
 
     }
 }

@@ -1,16 +1,15 @@
 ﻿using Newtonsoft.Json;
 
-namespace CompaniesHouse.Response.CompanyPersonsWithSignificantControl
+namespace CompaniesHouse.Tests.ResourceBuilders.CompanyPersonsWithSignificantControlResource
 {
     public class Name
     {
-        [JsonProperty("forename")]
+        
         public string Forename { get; set; }
-        [JsonProperty("other_forenames")]
         public string OtherForenames { get; set; }
-        [JsonProperty("title")]
+
         public string Title { get; set; }
-        [JsonProperty("surname")]
+
         public string Surname { get; set; }
     }
 }
