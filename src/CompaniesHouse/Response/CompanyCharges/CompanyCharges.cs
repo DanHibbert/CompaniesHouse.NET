@@ -11,14 +11,14 @@ namespace CompaniesHouse.Response.CompanyCharges
         public List<ChargeItem> Items { get; set; }
 
         [JsonProperty("part_satisfied_count")]
-        public string PartSatisfiedCount { get; set; }
+        public int? PartSatisfiedCount { get; set; }
         [JsonProperty("satisfied_count")]
-        public string SatisfiedCount { get; set; }
+        public int? SatisfiedCount { get; set; }
         [JsonProperty("total_count")]
         public string TotalCount { get; set; }
 
         //TODO check spelling
         [JsonProperty("unfiletered_count")]
-        public string UnfileteredCount { get; set; }
+        public string UnfilteredCount { get; set; }
     }
 }

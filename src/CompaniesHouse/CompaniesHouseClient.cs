@@ -3,7 +3,13 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using CompaniesHouse.Request;
+using CompaniesHouse.Response.CompanyCharges;
 using CompaniesHouse.Response.CompanyFiling;
+using CompaniesHouse.Response.CompanyPersonsWithSignificantControl;
+using CompaniesHouse.Response.CompanyPersonsWithSignificantControl.Corporate;
+using CompaniesHouse.Response.CompanyPersonsWithSignificantControl.Legal;
+using CompaniesHouse.Response.CompanyPersonsWithSignificantControl.Statements;
+using CompaniesHouse.Response.CompanyPersonsWithSignificantControl.SuperSecure;
 using CompaniesHouse.Response.CompanyProfile;
 using CompaniesHouse.Response.Insolvency;
 using CompaniesHouse.Response.Officers;
@@ -36,7 +42,8 @@ namespace CompaniesHouse
             _companiesHouseCompanyFilingHistoryClient = new CompaniesHouseCompanyFilingHistoryClient(_httpClient, new CompanyFilingHistoryUriBuilder(), new FilingHistoryItemUriBuilder());
             _companiesHouseOfficersClient = new CompaniesHouseOfficersClient(_httpClient, new OfficersUriBuilder());
             _companiesHouseCompanyInsolvencyInformationClient = new CompaniesHouseCompanyInsolvencyInformationClient(_httpClient);
-            _companiesHousePersonsWithSignificantControlClient = new CompaniesHousePersonsWithSignificantControlClient(_httpClient, new PersonsWithSignificantControlUriBuilder());
+            _companiesHousePersonsWithSignificantControlClient = new CompaniesHousePersonsWithSignificantControlClient(_httpClient, 
+                new PersonsWithSignificantControlUriBuilder(), new PersonsWithSignificantControlIndividualUriBuilder(),new PersonsWithSignificantControlStatementsUriBuilder(), new PersonsWithSignificantControlStatementItemUriBuilder(), new PersonsWithSignificantControlSuperSecurePersonUriBuilder(), new PersonsWithSignificantControlUriCorporateEntitiesBuilder(), new PersonsWithSignificantControlUriLegalPersonBuilder());
             _companiesHouseCompanyChargesClient = new CompaniesHouseCompanyChargesClient(_httpClient,new CompanyChargesUriBuilder(), new ChargeItemUriBuilder());
         }
 
@@ -69,6 +76,11 @@ namespace CompaniesHouse
         {
             return _companiesHouseCompanyFilingHistoryClient.GetCompanyFilingHistoryAsync(companyNumber, startIndex, pageSize, cancellationToken);
         }
+        public Task<CompaniesHouseClientResponse<FilingHistoryItem>> GetCompanyFilingHistoryItemAsync(string companyNumber, string transactionId,
+          CancellationToken cancellationToken = new CancellationToken())
+        {
+            return _companiesHouseCompanyFilingHistoryClient.GetCompanyFilingHistoryItemAsync(companyNumber, transactionId, cancellationToken);
+        }
 
         public Task<CompaniesHouseClientResponse<Officers>> GetOfficersAsync(string companyNumber, int startIndex = 0, int pageSize = 25, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -80,9 +92,63 @@ namespace CompaniesHouse
             return _companiesHouseCompanyInsolvencyInformationClient.GetCompanyInsolvencyInformationAsync(companyNumber, cancellationToken);
         }
 
+        public Task<CompaniesHouseClientResponse<CompanyPersonsWithSignificantControl>> GetPersonsWithSignificanControlAsync(string companyNumber, int startIndex =0, int pageSize = 25,CancellationToken cancellationToken = new CancellationToken())
+        {
+            return _companiesHousePersonsWithSignificantControlClient.GetPersonsWithSignificanControlAsync(companyNumber, startIndex, pageSize, cancellationToken);
+        }
+
+        public Task<CompaniesHouseClientResponse<PersonWithSignificantControlItem>> GetPersonsWithSignificanControlIndividualAsync(string companyNumber, string personWithSignificantControlId,
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            return _companiesHousePersonsWithSignificantControlClient.GetPersonsWithSignificanControlIndividualAsync(companyNumber, personWithSignificantControlId, cancellationToken);
+        }
+
+        public Task<CompaniesHouseClientResponse<StatementList>> GetPersonsWithSignificanControlStatementsAsync(string companyNumber, int startIndex =0, int pageSize = 25,
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            return _companiesHousePersonsWithSignificantControlClient.GetPersonsWithSignificanControlStatementsAsync(companyNumber, startIndex, pageSize, cancellationToken);
+        }
+
+        public Task<CompaniesHouseClientResponse<StatementItem>> GetPersonsWithSignificanControlStatementItemAsync(string companyNumber, string statementId,
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            return _companiesHousePersonsWithSignificantControlClient.GetPersonsWithSignificanControlStatementItemAsync(companyNumber, statementId, cancellationToken);
+        }
+
+        public Task<CompaniesHouseClientResponse<SuperSecurePerson>> GetPersonsWithSignificanControlSuperSecurePersonAsync(string companyNumber, string superSecureId,
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            return _companiesHousePersonsWithSignificantControlClient.GetPersonsWithSignificanControlSuperSecurePersonAsync(companyNumber, superSecureId, cancellationToken);
+        }
+
+        public Task<CompaniesHouseClientResponse<CorporateEntity>> GetPersonsWithSignificanControlCorporateEntitiesAsync(string companyNumber, string personWithSignificantControlId,
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            return _companiesHousePersonsWithSignificantControlClient.GetPersonsWithSignificanControlCorporateEntitiesAsync(companyNumber, personWithSignificantControlId, cancellationToken);
+        }
+
+        public Task<CompaniesHouseClientResponse<LegalPerson>> GetPersonsWithSignificanControlLegalPersonAsync(string companyNumber, string personWithSignificantControlId,
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            return _companiesHousePersonsWithSignificantControlClient.GetPersonsWithSignificanControlLegalPersonAsync(companyNumber, personWithSignificantControlId, cancellationToken);
+        }
+
+        public Task<CompaniesHouseClientResponse<CompanyCharges>> GetCompanyChargesAsync(string companyNumber, int startIndex =0, int pageSize = 25,
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            return _companiesHouseCompanyChargesClient.GetCompanyChargesAsync(companyNumber, startIndex, pageSize, cancellationToken);
+        }
+
+        public Task<CompaniesHouseClientResponse<ChargeItem>> GetCompanyChargeItemAsync(string companyNumber, string chargeId,
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            return _companiesHouseCompanyChargesClient.GetCompanyChargeItemAsync(companyNumber, chargeId, cancellationToken);
+        }
+
         public void Dispose()
         {
             _httpClient.Dispose();
         }
+
     }
 }

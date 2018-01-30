@@ -16,7 +16,7 @@ namespace CompaniesHouse
         {
             _httpClient = httpClient;
             _companyChargesUriBuilder = companyChargesUriBuilder;
-            _chargeItemUriBuilder = _chargeItemUriBuilder;
+            _chargeItemUriBuilder = chargeItemUriBuilder;
         }
 
         public async Task<CompaniesHouseClientResponse<CompanyCharges>> GetCompanyChargesAsync(string companyNumber, int startIndex, int pageSize, CancellationToken cancellationToken = default(CancellationToken))
@@ -36,7 +36,7 @@ namespace CompaniesHouse
             return new CompaniesHouseClientResponse<CompanyCharges>(result);
         }
 
-        public async Task<CompaniesHouseClientResponse<ChargeItem>> GetChargeItemAsync(string companyNumber, string chargeId, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<CompaniesHouseClientResponse<ChargeItem>> GetCompanyChargeItemAsync(string companyNumber, string chargeId, CancellationToken cancellationToken = default(CancellationToken))
         {
             var requestUri = _chargeItemUriBuilder.Build(companyNumber, chargeId);
 

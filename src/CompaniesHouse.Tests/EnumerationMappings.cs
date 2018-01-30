@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CompaniesHouse.Response;
+using CompaniesHouse.Response.CompanyFiling;
 using CompaniesHouse.Response.CompanyProfile;
 
 namespace CompaniesHouse.Tests

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace CompaniesHouse.Response.CompanyCharges
 {
@@ -17,6 +18,7 @@ namespace CompaniesHouse.Response.CompanyCharges
         [JsonProperty("floating_charge_covers_all")]
         public string FloatingChargeCoversAll { get; set; }
         [JsonProperty("type")]
+        [JsonConverter(typeof(StringEnumConverter))]
         public string Type { get; set; }
     }
 }

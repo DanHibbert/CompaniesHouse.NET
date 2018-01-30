@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using CompaniesHouse.Tests.ResourceBuilders.CompanyFilingHistoryResource;
 using CompaniesHouse.Tests.ResourceBuilders.CompanyPersonsWithSignificantControlResource;
 using Moq;
 using NUnit.Framework;
@@ -13,13 +12,13 @@ namespace CompaniesHouse.Tests.CompaniesHousePersonsWithSignificantControlTests
         private CompaniesHousePersonsWithSignificantControlClient _client;
 
         private CompaniesHouseClientResponse<CompanyPersonsWithSignificantControl> _result;
-        private CompanyFilingHistory _people;
+        private CompanyPersonsWithSignificantControl _peopleWithSignificantControl;
 
         [Test]
         public void GivenACompaniesHouseCompanyProfileClient_WhenGettingACompanyProfile()
         {
             _people = new PersonsWithSignificantControlBuilder().Build();
-            var resource = new PersonsWithSignificantControlResourceBuilder(_people).Create();
+            var resource = new CompanyPersonsWithSignificantControlResourceBuilder(_peopleWithSignificantControl).Create();
 
             var uri = new Uri("https://wibble.com/search/companies");
 

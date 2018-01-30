@@ -6,102 +6,90 @@ namespace CompaniesHouse.Tests.ResourceBuilders.CompanyPersonsWithSignificantCon
 {
     public class CompanyPersonsWithSignificantControlResourceBuilder
     {
-        private readonly CompanyFilingHistory _companyFilingHistory;
+        private readonly CompanyPersonsWithSignificantControl _companyPersonsWithSignificantControl;
 
-        public CompanyPersonsWithSignificantControlResourceBuilder(CompanyFilingHistory companyFilingHistory)
+        public CompanyPersonsWithSignificantControlResourceBuilder(CompanyPersonsWithSignificantControl companyPersonsWithSignificantControl)
         {
-            _companyFilingHistory = companyFilingHistory;
+            _companyPersonsWithSignificantControl = companyPersonsWithSignificantControl;
         }
+
+        //public string Create()
+        //{
+        //    return $@"{{
+        //               ""etag"" : ""{_companyPersonsWithSignificantControl.ETag}"",
+        //               ""filing_history_status"" : ""{_companyPersonsWithSignificantControl.HistoryStatus}"",
+        //               ""items"" : [
+        //                   {string.Join(",", _companyPersonsWithSignificantControl.Items.Select(GetItemJsonBlock))}
+        //               ],
+        //               ""items_per_page"" : ""{_companyPersonsWithSignificantControl.ItemsPerPage}"",
+        //               ""kind"" : ""{_companyFilingHistory.Kind}"",
+        //               ""start_index"" : ""{_companyFilingHistory.StartIndex}"",
+        //               ""total_count"" : ""{_companyFilingHistory.TotalCount}""
+        //            }}";
+        //}
 
         public string Create()
         {
             return $@"{{
-                       ""etag"" : ""{_companyFilingHistory.ETag}"",
-                       ""filing_history_status"" : ""{_companyFilingHistory.HistoryStatus}"",
-                       ""items"" : [
-                           {string.Join(",", _companyFilingHistory.Items.Select(GetItemJsonBlock))}
-                       ],
-                       ""items_per_page"" : ""{_companyFilingHistory.ItemsPerPage}"",
-                       ""kind"" : ""{_companyFilingHistory.Kind}"",
-                       ""start_index"" : ""{_companyFilingHistory.StartIndex}"",
-                       ""total_count"" : ""{_companyFilingHistory.TotalCount}""
-                    }}";
+   ""active_count"" : ""{_companyPersonsWithSignificantControl.ActiveCount}"",
+   ""ceased_count"" : ""{_companyPersonsWithSignificantControl.CeasedCount}"",
+   ""etag"" : ""{_companyPersonsWithSignificantControl.Etag}"",
+   ""items"" : [
+            {string.Join(",", _companyPersonsWithSignificantControl.Items.Select(GetItemJsonBlock))}
+   ],
+   ""items_per_page"" : ""integer"",
+   ""kind"" : ""string"",
+   ""links"" : {{
+      ""persons_with_significant_control_statements_list"" : ""string"",
+      ""self"" : ""string""
+   }},
+   ""start_index"" : ""integer"",
+   ""total_results"" : ""integer""
+}}";
         }
 
-        private string GetItemJsonBlock(FilingHistoryItem item)
+        private string GetItemJsonBlock(PersonWithSignificantControlItem item)
         {
             return $@"{{
-                         ""annotations"" : [
-                           {string.Join(",", item.Annotations.Select(GetAnnotationJsonBlock))}
-                         ],
-                         ""associated_filings"" : [
-                           {string.Join(",", item.AssociatedFilings.Select(GetAssociatedFilingJsonBlock))}
-                         ],
-                         ""barcode"" : ""{item.Barcode}"",
-                         ""category"" : ""{item.Category}"",
-                         ""date"" : ""{item.DateOfProcessing.ToString("yyyy-MM-dd")}"",
-                         ""description"" : ""{item.Description}"",
-                         ""description_values"" : {{
-                            {string.Join(",", item.DescriptionValues.Select(GetDictionaryJsonBlock))}
-                         }},
-                         ""links"" : {{
-                            ""document_metadata"" : ""{item.Links.DocumentMetaData}"",
-                            ""self"" : ""{item.Links.Self}""
-                         }},
-                         ""pages"" : ""{item.PageCount}"",
-                         ""paper_filed"" : ""{item.PaperFiled}"",
-                         ""resolutions"" : [
-                           {string.Join(",", item.Resolutions.Select(GetResolutionJsonBlock))}
-                         ],
-                         ""subcategory"" : ""{item.Subcategory}"",
-                         ""transaction_id"" : ""{item.TransactionId}"",
-                         ""type"" : ""{item.FilingType}""
-                      }}";
+         ""address"" : {{
+            ""address_line_1"" : ""{item.Address.AddressLine1}"",
+            ""address_line_2"" : ""{item.Address.AddressLine2}"",
+            ""care_of"" : ""{item.Address.CareOf}"",
+            ""country"" : ""{item.Address.Country}"",
+            ""locality"" : ""{item.Address.Locality}"",
+            ""po_box"" : ""{item.Address.PoBox}"",
+            ""postal_code"" : ""{item.Address.PostalCode}"",
+            ""premises"" : ""{item.Address.Premises}"",
+            ""region"" : ""{item.Address.Region}""
+         }},
+         ""ceased_on"" : ""{item.}"",
+         ""country_of_residence"" : ""string"",
+         ""date_of_birth"" : {{
+            ""day"" : ""integer"",
+            ""month"" : ""integer"",
+            ""year"" : ""integer""
+         }},
+         ""etag"" : ""string"",
+         ""links"" : {{
+            ""self"" : ""string"",
+            ""statement"" : ""string""
+         }},
+         ""name"" : ""string"",
+         ""name_elements"" : {{
+            ""forename"" : ""string"",
+            ""other_forenames"" : ""string"",
+            ""surname"" : ""string"",
+            ""title"" : ""string""
+         }},
+         ""nationality"" : ""string"",
+         ""natures_of_control"" : [
+            ""string""
+         ],
+         ""notified_on"" : ""date""
+      }}";
         }
 
-        private string GetDictionaryJsonBlock(KeyValuePair<string, string> pair)
-        {
-            return $@"""{pair.Key}"" : ""{pair.Value}""";
-        }
-
-        private string GetAnnotationJsonBlock(FilingHistoryItemAnnotation annotation)
-        {
-            return $@"{{
-                         ""annotation"" : ""{annotation.Annotation}"",
-                         ""date"" : ""{annotation.DateOfAnnotation.ToString("yyyy-MM-dd")}"",
-                         ""description"" : ""{annotation.Description}"",
-                         ""description_values"" : {{
-                            {string.Join(",", annotation.DescriptionValues.Select(GetDictionaryJsonBlock))}
-                         }}
-                      }}";
-        }
-
-        private string GetAssociatedFilingJsonBlock(FilingHistoryItemAssociatedFiling associated)
-        {
-            return $@"{{
-                         ""date"" : ""{associated.Date.ToString("yyyy-MM-dd")}"",
-                         ""description"" : ""{associated.Description}"",
-                         ""type"" : ""{associated.FilingType}"",
-                         ""description_values"" : {{
-                            {string.Join(",", associated.DescriptionValues.Select(GetDictionaryJsonBlock))}
-                         }}
-                      }}";
-        }
-
-        private string GetResolutionJsonBlock(FilingHistoryItemResolution resolution)
-        {
-            return $@"{{
-                         ""category"" : ""{resolution.Category}"",
-                         ""description"" : ""{resolution.Description}"",
-                         ""document_id"" : ""{resolution.DocumentId}"",
-                         ""receive_date"" : ""{resolution.DateOfProcessing.ToString("yyyy-MM-dd")}"",
-                         ""subcategory"" : ""{resolution.Subcategory}"",
-                         ""type"" : ""{resolution.ResolutionType}"",
-                         ""description_values"" : {{
-                            {string.Join(",", resolution.DescriptionValues.Select(GetDictionaryJsonBlock))}
-                         }}
-                      }}";
-        }
+      
 
 
     }

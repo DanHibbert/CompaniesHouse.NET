@@ -1,4 +1,5 @@
 ﻿using CompaniesHouse.Response;
+using CompaniesHouse.Response.CompanyFiling;
 using CompaniesHouse.Response.CompanyProfile;
 using CompaniesHouse.Tests.MapProviders;
 using FluentAssertions;

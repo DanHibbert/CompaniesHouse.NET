@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 
-namespace CompaniesHouse.Response.CompanyPersonsWithSignificantControl
+namespace CompaniesHouse.Response.CompanyPersonsWithSignificantControl.Corporate
 {
     public class Address
     {
