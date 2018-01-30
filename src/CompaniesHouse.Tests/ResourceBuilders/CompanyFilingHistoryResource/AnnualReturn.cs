@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CompaniesHouse.Tests.ResourceBuilders
+namespace CompaniesHouse.Tests.ResourceBuilders.CompanyFilingHistoryResource
 {
     public class AnnualReturn
     {

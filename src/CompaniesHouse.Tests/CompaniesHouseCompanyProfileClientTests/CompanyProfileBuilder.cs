@@ -2,7 +2,7 @@ using System.Linq;
 using CompaniesHouse.Response.CompanyProfile;
 using Ploeh.AutoFixture;
 using Accounts = CompaniesHouse.Tests.ResourceBuilders.Accounts;
-using AnnualReturn = CompaniesHouse.Tests.ResourceBuilders.AnnualReturn;
+using AnnualReturn = CompaniesHouse.Tests.ResourceBuilders.CompanyFilingHistoryResource.AnnualReturn;
 using CompanyProfile = CompaniesHouse.Tests.ResourceBuilders.CompanyProfile;
 using ConfirmationStatement = CompaniesHouse.Tests.ResourceBuilders.ConfirmationStatement;
 using LastAccounts = CompaniesHouse.Tests.ResourceBuilders.LastAccounts;
@@ -19,9 +19,9 @@ namespace CompaniesHouse.Tests.CompaniesHouseCompanyProfileClientTests
             fixture.Customizations.Add(new UniversalDateSpecimenBuilder<ResourceBuilders.LastAccounts>(x => x.MadeUpTo));
             fixture.Customizations.Add(new UniversalDateSpecimenBuilder<ResourceBuilders.Accounts>(x => x.NextMadeUpTo));
             fixture.Customizations.Add(new UniversalDateSpecimenBuilder<ResourceBuilders.Accounts>(x => x.NextDue));
-            fixture.Customizations.Add(new UniversalDateSpecimenBuilder<ResourceBuilders.AnnualReturn>(x => x.LastMadeUpTo));
-            fixture.Customizations.Add(new UniversalDateSpecimenBuilder<ResourceBuilders.AnnualReturn>(x => x.NextDue));
-            fixture.Customizations.Add(new UniversalDateSpecimenBuilder<ResourceBuilders.AnnualReturn>(x => x.NextMadeUpTo));
+            fixture.Customizations.Add(new UniversalDateSpecimenBuilder<AnnualReturn>(x => x.LastMadeUpTo));
+            fixture.Customizations.Add(new UniversalDateSpecimenBuilder<AnnualReturn>(x => x.NextDue));
+            fixture.Customizations.Add(new UniversalDateSpecimenBuilder<AnnualReturn>(x => x.NextMadeUpTo));
             fixture.Customizations.Add(new UniversalDateSpecimenBuilder<ResourceBuilders.CompanyProfile>(x => x.DateOfCreation));
             fixture.Customizations.Add(
                 new UniversalDateSpecimenBuilder<ResourceBuilders.CompanyProfile>(x => x.DateOfDissolution));

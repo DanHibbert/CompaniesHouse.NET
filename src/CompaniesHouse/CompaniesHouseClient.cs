@@ -23,6 +23,8 @@ namespace CompaniesHouse
         private readonly ICompaniesHouseOfficersClient _companiesHouseOfficersClient;
         private readonly ICompaniesHouseCompanyInsolvencyInformationClient _companiesHouseCompanyInsolvencyInformationClient;
         private readonly HttpClient _httpClient;
+        private CompaniesHousePersonsWithSignificantControlClient _companiesHousePersonsWithSignificantControlClient;
+        private CompaniesHouseCompanyChargesClient _companiesHouseCompanyChargesClient;
 
         public CompaniesHouseClient(ICompaniesHouseSettings settings)
         {
@@ -31,9 +33,11 @@ namespace CompaniesHouse
 
             _companiesHouseSearchClient = new CompaniesHouseSearchClient(_httpClient, new SearchUriBuilderFactory());
             _companiesHouseCompanyProfileClient = new CompaniesHouseCompanyProfileClient(_httpClient, new CompanyProfileUriBuilder());
-            _companiesHouseCompanyFilingHistoryClient = new CompaniesHouseCompanyFilingHistoryClient(_httpClient, new CompanyFilingHistoryUriBuilder());
+            _companiesHouseCompanyFilingHistoryClient = new CompaniesHouseCompanyFilingHistoryClient(_httpClient, new CompanyFilingHistoryUriBuilder(), new FilingHistoryItemUriBuilder());
             _companiesHouseOfficersClient = new CompaniesHouseOfficersClient(_httpClient, new OfficersUriBuilder());
             _companiesHouseCompanyInsolvencyInformationClient = new CompaniesHouseCompanyInsolvencyInformationClient(_httpClient);
+            _companiesHousePersonsWithSignificantControlClient = new CompaniesHousePersonsWithSignificantControlClient(_httpClient, new PersonsWithSignificantControlUriBuilder());
+            _companiesHouseCompanyChargesClient = new CompaniesHouseCompanyChargesClient(_httpClient,new CompanyChargesUriBuilder(), new ChargeItemUriBuilder());
         }
 
         public Task<CompaniesHouseClientResponse<CompanySearch>> SearchCompanyAsync(SearchRequest request, CancellationToken cancellationToken = default(CancellationToken))

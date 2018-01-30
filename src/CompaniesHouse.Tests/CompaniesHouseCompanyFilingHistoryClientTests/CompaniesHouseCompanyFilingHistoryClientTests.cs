@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using CompaniesHouse.Tests.ResourceBuilders;
+using CompaniesHouse.Tests.ResourceBuilders.CompanyFilingHistoryResource;
 using CompaniesHouse.UriBuilders;
 using FluentAssertions;
 using Moq;
@@ -16,7 +17,7 @@ namespace CompaniesHouse.Tests.CompaniesHouseCompanyFilingHistoryClientTests
         private CompaniesHouseCompanyFilingHistoryClient _client;
 
         private CompaniesHouseClientResponse<Response.CompanyFiling.CompanyFilingHistory> _result;
-        private ResourceBuilders.CompanyFilingHistory _companyFilingHistory;
+        private ResourceBuilders.CompanyFilingHistoryResource.CompanyFilingHistory _companyFilingHistory;
 
         [TestCaseSource(nameof(TestCases))]
         public void GivenACompaniesHouseCompanyProfileClient_WhenGettingACompanyProfile(CompaniesHouseCompanyFilingHistoryClientTestCase testCase)

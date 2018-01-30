@@ -1,4 +1,5 @@
 using System;
+using CompaniesHouse.Tests.ResourceBuilders.CompanyFilingHistoryResource;
 
 namespace CompaniesHouse.Tests.ResourceBuilders
 {

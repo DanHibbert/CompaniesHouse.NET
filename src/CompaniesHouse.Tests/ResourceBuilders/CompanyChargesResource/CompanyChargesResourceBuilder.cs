@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CompaniesHouse.Tests.ResourceBuilders.CompanyFilingHistoryResource;
 
-namespace CompaniesHouse.Tests.ResourceBuilders
+namespace CompaniesHouse.Tests.ResourceBuilders.CompanyChargesResource
 {
-    public class CompanyFilingHistoryResourceBuilder
+    public class CompanyChargesResourceBuilder
     {
         private readonly CompanyFilingHistory _companyFilingHistory;
 
-        public CompanyFilingHistoryResourceBuilder(CompanyFilingHistory companyFilingHistory)
+        public CompanyChargesResourceBuilder(CompanyFilingHistory companyFilingHistory)
         {
             _companyFilingHistory = companyFilingHistory;
         }

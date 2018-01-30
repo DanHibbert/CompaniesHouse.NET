@@ -10,11 +10,13 @@ namespace CompaniesHouse
     {
         private readonly HttpClient _httpClient;
         private readonly ICompanyFilingHistoryUriBuilder _companyFilingHistoryUriBuilder;
+        private readonly IFilingHistoryItemUriBuilder _filingHistoryItemUriBuilder;
 
-        public CompaniesHouseCompanyFilingHistoryClient(HttpClient httpClient, ICompanyFilingHistoryUriBuilder companyFilingHistoryUriBuilder)
+        public CompaniesHouseCompanyFilingHistoryClient(HttpClient httpClient, ICompanyFilingHistoryUriBuilder companyFilingHistoryUriBuilder, IFilingHistoryItemUriBuilder filingHistoryItemUriBuilder)
         {
             _httpClient = httpClient;
             _companyFilingHistoryUriBuilder = companyFilingHistoryUriBuilder;
+            _filingHistoryItemUriBuilder = filingHistoryItemUriBuilder;
         }
 
         public async Task<CompaniesHouseClientResponse<CompanyFilingHistory>> GetCompanyFilingHistoryAsync(string companyNumber, int startIndex, int pageSize, CancellationToken cancellationToken = default(CancellationToken))
@@ -32,6 +34,24 @@ namespace CompaniesHouse
                 : null;
 
             return new CompaniesHouseClientResponse<CompanyFilingHistory>(result);
+        }
+
+        public async Task<CompaniesHouseClientResponse<FilingHistoryItem>> GetCompanyFilingHistoryItemAsync(string companyNumber, string transactionId,
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            var requestUri = _filingHistoryItemUriBuilder.Build(companyNumber, transactionId);
+
+            var response = await _httpClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
+
+            // Return a null profile on 404s, but raise exception for all other error codes
+            if (response.StatusCode != System.Net.HttpStatusCode.NotFound)
+                response.EnsureSuccessStatusCode();
+
+            FilingHistoryItem result = response.IsSuccessStatusCode
+                ? await response.Content.ReadAsJsonAsync<FilingHistoryItem>().ConfigureAwait(false)
+                : null;
+
+            return new CompaniesHouseClientResponse<FilingHistoryItem>(result);
         }
     }
 }
