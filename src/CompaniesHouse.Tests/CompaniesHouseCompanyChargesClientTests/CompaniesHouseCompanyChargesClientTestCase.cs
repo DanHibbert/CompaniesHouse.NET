@@ -2,12 +2,16 @@ namespace CompaniesHouse.Tests.CompaniesHouseCompanyChargesClientTests
 {
     public class CompaniesHouseCompanyChargesClientTestCase
     {
-        public string ChargeCode { get; set; }
+        //All Enums ?
 
-        public string ChargeNumber { get; set; }
+        public string AssetsCeasedReleased { get; set; }
 
-        public string MoreThanFourPersonsEntitled { get; set; }
+        public string Classification { get; set; }
+        public string Status { get; set; }
 
-        public string ResolutionCategory { get; set; }
+        public string Filing { get; set; }
+
+        public string Particulars { get; set; }
+        public string SecuredDetails { get; set; }
     }
 }

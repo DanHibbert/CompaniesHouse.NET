@@ -29,8 +29,8 @@ namespace CompaniesHouse
         private readonly ICompaniesHouseOfficersClient _companiesHouseOfficersClient;
         private readonly ICompaniesHouseCompanyInsolvencyInformationClient _companiesHouseCompanyInsolvencyInformationClient;
         private readonly HttpClient _httpClient;
-        private CompaniesHousePersonsWithSignificantControlClient _companiesHousePersonsWithSignificantControlClient;
-        private CompaniesHouseCompanyChargesClient _companiesHouseCompanyChargesClient;
+        private readonly CompaniesHousePersonsWithSignificantControlClient _companiesHousePersonsWithSignificantControlClient;
+        private readonly CompaniesHouseCompanyChargesClient _companiesHouseCompanyChargesClient;
 
         public CompaniesHouseClient(ICompaniesHouseSettings settings)
         {

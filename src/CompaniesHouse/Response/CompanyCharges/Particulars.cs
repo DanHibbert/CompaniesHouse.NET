@@ -19,6 +19,6 @@ namespace CompaniesHouse.Response.CompanyCharges
         public string FloatingChargeCoversAll { get; set; }
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public string Type { get; set; }
+        public ParticularsType Type { get; set; }
     }
 }

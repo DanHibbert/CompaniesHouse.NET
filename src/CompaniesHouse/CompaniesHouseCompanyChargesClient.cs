@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,13 +26,22 @@ namespace CompaniesHouse
 
             var response = await _httpClient.GetAsync(requestUri, cancellationToken).ConfigureAwait(false);
 
-            // Return a null profile on 404s, but raise exception for all other error codes
+            // Return a null object on 404s, but raise exception for all other error codes
             if (response.StatusCode != System.Net.HttpStatusCode.NotFound)
                 response.EnsureSuccessStatusCode();
+            CompanyCharges result = null;
+            //try
+            //{
+                result = response.IsSuccessStatusCode
+                    ? await response.Content.ReadAsJsonAsync<CompanyCharges>().ConfigureAwait(false)
+                    : null;
 
-            CompanyCharges result = response.IsSuccessStatusCode
-                ? await response.Content.ReadAsJsonAsync<CompanyCharges>().ConfigureAwait(false)
-                : null;
+            //}
+            //catch (Exception e)
+            //{
+               
+            //    throw;
+            //}
 
             return new CompaniesHouseClientResponse<CompanyCharges>(result);
         }

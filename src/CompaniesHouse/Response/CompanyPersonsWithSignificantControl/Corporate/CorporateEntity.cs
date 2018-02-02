@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace CompaniesHouse.Response.CompanyPersonsWithSignificantControl.Corporate
 {
@@ -15,7 +16,8 @@ namespace CompaniesHouse.Response.CompanyPersonsWithSignificantControl.Corporate
         [JsonProperty("identification")]
         public Identification Identification { get; set; }
         [JsonProperty("kind")]
-        public string Kind { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public CorporateEntityType Kind { get; set; }
         [JsonProperty("links")]
         public Links Links { get; set; }
         [JsonProperty("name")]

@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace CompaniesHouse.Response.CompanyPersonsWithSignificantControl.Statements
 {
@@ -20,6 +21,7 @@ namespace CompaniesHouse.Response.CompanyPersonsWithSignificantControl.Statement
         [JsonProperty("restrictions_notice_withdrawal_reason")]
         public string RestrictionsNoticeWithdrawalReason { get; set; }
         [JsonProperty("statement")]
-        public string StatementInfo { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public StatementType Statement { get; set; }
     }
 }

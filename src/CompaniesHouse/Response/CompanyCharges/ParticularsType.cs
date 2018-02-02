@@ -4,6 +4,7 @@ namespace CompaniesHouse.Response.CompanyCharges
 {
     public enum ParticularsType
     {
+        [EnumMember(Value = "")]
         None = 0,
         [EnumMember(Value = "short-particulars")]
         ShortParticulars,

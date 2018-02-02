@@ -34,7 +34,11 @@ namespace CompaniesHouse.Tests.CompaniesHouseCompanyFilingHistoryClientTests
             uriBuilder.Setup(x => x.Build(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                 .Returns(uri);
 
-            _client = new CompaniesHouseCompanyFilingHistoryClient(new HttpClient(handler), uriBuilder.Object);
+            var uriItemBuilder = new Mock<IFilingHistoryItemUriBuilder>();
+            uriItemBuilder.Setup(x => x.Build(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(uri);
+
+            _client = new CompaniesHouseCompanyFilingHistoryClient(new HttpClient(handler), uriBuilder.Object, uriItemBuilder.Object);
 
             _result = _client.GetCompanyFilingHistoryAsync("abc", 0, 25).Result;
 

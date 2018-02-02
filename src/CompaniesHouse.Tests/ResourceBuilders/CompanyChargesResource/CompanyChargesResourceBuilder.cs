@@ -29,17 +29,17 @@ namespace CompaniesHouse.Tests.ResourceBuilders.CompanyChargesResource
         private string GetItemJsonBlock(ChargeItem item)
         {
             return $@"{{
-         ""acquired_on"" : ""{item.AcquiredOn}"",
-         ""assets_ceased_released"" : ""{item.AssetsCeasedReleased}"",
+         ""acquired_on"" : ""{item.AcquiredOn:yyyy-MM-dd}"",
+         ""assets_ceased_released"" : ""{item.AssetsCeasedReleasedType}"",
          ""charge_code"" : ""{item.ChargeCode}"",
          ""charge_number"" : ""{item.ChargeNumber}"",
          ""classification"" : {{
             ""description"" : ""{item.Classification.Description}"",
-            ""type"" : ""{item.Classification.Type}""
+            ""type"" : ""{item.Classification.ClassificationType}""
          }},
-         ""covering_instrument_date"" : ""{item.CoveringInstrumentDate}"",
-         ""created_on"" : ""{item.CreatedOn}"",
-         ""delivered_on"" : ""{item.DeliveredOn}"",
+         ""covering_instrument_date"" : ""{item.CoveringInstrumentDate:yyyy-MM-dd}"",
+         ""created_on"" : ""{item.CreatedOn:yyyy-MM-dd}"",
+         ""delivered_on"" : ""{item.DeliveredOn:yyyy-MM-dd}"",
          ""etag"" : ""{item.Etag}"",
          ""id"" : ""{item.Id}"",
          ""insolvency_cases"" : [
@@ -61,8 +61,8 @@ namespace CompaniesHouse.Tests.ResourceBuilders.CompanyChargesResource
          ""persons_entitled"" : [
   {string.Join(",", item.PersonsEntitled.Select(GetPersonsEntitleBlock))}
          ],
-         ""resolved_on"" : ""{item.ResolvedOn}"",
-         ""satisfied_on"" : ""{item.SatisfiedOn}"",
+         ""resolved_on"" : ""{item.ResolvedOn:yyyy-MM-dd}"",
+         ""satisfied_on"" : ""{item.SatisfiedOn:yyyy-MM-dd}"",
          ""scottish_alterations"" : {{
             ""has_alterations_to_order"" : ""{item.ScottishAlterations.HasAlterationsToOrder}"",
             ""has_alterations_to_prohibitions"" : ""{item.ScottishAlterations.HasAlterationsToProhibitions}"",
@@ -72,7 +72,7 @@ namespace CompaniesHouse.Tests.ResourceBuilders.CompanyChargesResource
             ""description"" : ""{item.SecuredDetails.Description}"",
             ""type"" : ""{item.SecuredDetails.Type}""
          }},
-         ""status"" : ""{item.Status}"",
+         ""status"" : ""{item.StatusType}"",
          ""transactions"" : [
   {string.Join(",", item.Transactions.Select(GetTransactionsBlock))}
          ]

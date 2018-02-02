@@ -10,6 +10,6 @@ namespace CompaniesHouse.Tests.ResourceBuilders.CompanyChargesResource
         public string Description { get; set; }
          
          
-        public ClassificationType Type { get; set; }
+        public string ClassificationType { get; set; }
     }
 }

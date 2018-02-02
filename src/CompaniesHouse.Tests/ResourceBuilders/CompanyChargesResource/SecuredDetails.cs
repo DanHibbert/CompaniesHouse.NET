@@ -6,10 +6,7 @@ namespace CompaniesHouse.Tests.ResourceBuilders.CompanyChargesResource
 {
     public class SecuredDetails
     {
-         
         public string Description { get; set; }
-         
-         
-        public SecuredDetailsType Type { get; set; }
+        public string Type { get; set; }
     }
 }

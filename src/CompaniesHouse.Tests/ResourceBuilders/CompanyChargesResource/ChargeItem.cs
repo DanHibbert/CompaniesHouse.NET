@@ -12,7 +12,7 @@ namespace CompaniesHouse.Tests.ResourceBuilders.CompanyChargesResource
         public DateTime AcquiredOn { get; set; }
          
          
-        public AssetsCeasedReleasedType AssetsCeasedReleased { get; set; }
+        public string AssetsCeasedReleasedType { get; set; }
          
         public string ChargeCode { get; set; }
          
@@ -49,7 +49,7 @@ namespace CompaniesHouse.Tests.ResourceBuilders.CompanyChargesResource
         public SecuredDetails SecuredDetails { get; set; }
          
          
-        public Status Status { get; set; }
+        public string StatusType { get; set; }
          
         public List<Transaction> Transactions { get; set; }
     }

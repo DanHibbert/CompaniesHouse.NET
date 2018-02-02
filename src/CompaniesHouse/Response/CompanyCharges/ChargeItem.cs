@@ -48,7 +48,7 @@ namespace CompaniesHouse.Response.CompanyCharges
         public SecuredDetails SecuredDetails { get; set; }
         [JsonProperty("status")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public Status Status { get; set; }
+        public StatusType Status { get; set; }
         [JsonProperty("transactions")]
         public List<Transaction> Transactions { get; set; }
     }

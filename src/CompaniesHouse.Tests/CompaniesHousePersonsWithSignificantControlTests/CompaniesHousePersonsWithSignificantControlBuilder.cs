@@ -1,28 +1,27 @@
 ﻿using System.Linq;
-using CompaniesHouse.Tests.ResourceBuilders;
-using CompaniesHouse.Tests.ResourceBuilders.CompanyPersonsWithSignificantControlResource;
+using CompaniesHouse.Tests.ResourceBuilders.CompanyPersonsWithSignificantControl;
 using Ploeh.AutoFixture;
 
 namespace CompaniesHouse.Tests.CompaniesHousePersonsWithSignificantControlTests
 {
     public class CompaniesHousePersonsWithSignificantControlBuilder
     {
-        public CompaniesHousePersonsWithSignificantControlClient Build()
+        public CompanyPersonsWithSignificantControl Build()
         {
             var fixture = new Fixture();
-            //fixture.Customizations.Add(new UniversalDateSpecimenBuilder<PersonWithSignificantControlItem>(x => x.));
-            //fixture.Customizations.Add(new UniversalDateSpecimenBuilder<PersonWithSignificantControlItem>(x => x.ResignedOn));
+            fixture.Customizations.Add(new UniversalDateSpecimenBuilder<PersonWithSignificantControlItem>(x => x.CeasedOn));
+            fixture.Customizations.Add(new UniversalDateSpecimenBuilder<PersonWithSignificantControlItem>(x => x.NotifiedOn));
 
-            var officers = EnumerationMappings.PossibleOfficerRoles.Keys.Select(x => fixture.Build<Officer>()
-               .With(y => y.OfficerRole, x)
-               .Create()).ToArray();
+            var pscList = fixture.Build<PersonWithSignificantControlItem>().CreateMany().ToList();
 
-            var officerSummary = fixture.Build<Officers>().With(x => x.Items, officers).Create();
+            //var officers = EnumerationMappings.PossibleOfficerRoles.Keys.Select(x => fixture.Build<PersonWithSignificantControlItem>()
+            //   .With(y => y., x)
+            //   .Create()).ToArray();
 
-            var result = fixture.Build<Officers>()
-                .With(x => x.Items, officerSummary.Items)
-                .With(x => x.ActiveCount, officerSummary.ActiveCount)
-                .With(x => x.ResignedCount, officerSummary.ResignedCount)
+            //var officerSummary = fixture.Build<Officers>().With(x => x.Items, officers).Create();
+
+            var result = fixture.Build<CompanyPersonsWithSignificantControl>()
+                .With(x => x.Items, pscList)
                 .Create();
 
             return result;

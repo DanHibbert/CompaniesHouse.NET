@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace CompaniesHouse.Response.CompanyCharges
 {
@@ -7,7 +8,8 @@ namespace CompaniesHouse.Response.CompanyCharges
         [JsonProperty("delivered_on")]
         public string DeliveredOn { get; set; }
         [JsonProperty("filing_type")]
-        public string FilingType { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public FilingType FilingType { get; set; }
         [JsonProperty("insolvency_case_number")]
         public string InsolvencyCaseNumber { get; set; }
         [JsonProperty("links")]

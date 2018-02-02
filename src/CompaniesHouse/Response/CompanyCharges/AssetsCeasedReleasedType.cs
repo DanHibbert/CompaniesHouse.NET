@@ -4,6 +4,7 @@ namespace CompaniesHouse.Response.CompanyCharges
 {
     public enum AssetsCeasedReleasedType
     {
+        [EnumMember(Value = "")]
         None = 0,
         [EnumMember(Value = "property-ceased-to-belong")]
         PropertyCeasedToBelong,

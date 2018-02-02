@@ -4,6 +4,7 @@ namespace CompaniesHouse.Response.CompanyPersonsWithSignificantControl.SuperSecu
 {
     public enum SuperSecurePersonType
     {
+        [EnumMember(Value = "")]
         None = 0,
         [EnumMember(Value = "super-secure-person-with-significant-control")]
         SuperSecurePersonWithSignificantControl,

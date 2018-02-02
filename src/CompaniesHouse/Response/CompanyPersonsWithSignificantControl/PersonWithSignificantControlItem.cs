@@ -1,18 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace CompaniesHouse.Response.CompanyPersonsWithSignificantControl
 {
-    public enum NaturesOfControlType
-    {
-        None = 0,
-        //[EnumMember(Value = "short-particulars")]
-        //ShortParticulars,
-        
-    }
     public class PersonWithSignificantControlItem
     {
         [JsonProperty("natures_of_control")]

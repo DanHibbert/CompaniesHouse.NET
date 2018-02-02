@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
-using CompaniesHouse.Tests.CompaniesHouseCompanyFilingHistoryClientTests;
-using CompaniesHouse.Tests.ResourceBuilders;
 using CompaniesHouse.Tests.ResourceBuilders.CompanyChargesResource;
-using CompaniesHouse.Tests.ResourceBuilders.CompanyFilingHistoryResource;
 using CompaniesHouse.UriBuilders;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
-using CompanyCharges = CompaniesHouse.Response.CompanyCharges.CompanyCharges;
 
 namespace CompaniesHouse.Tests.CompaniesHouseCompanyChargesClientTests
 {
@@ -19,7 +15,7 @@ namespace CompaniesHouse.Tests.CompaniesHouseCompanyChargesClientTests
         private CompaniesHouseCompanyChargesClient _client;
 
         private CompaniesHouseClientResponse<Response.CompanyCharges.CompanyCharges> _result;
-        private ResourceBuilders.CompanyChargesResource.CompanyCharges _companyCharges;
+        private CompanyCharges _companyCharges;
 
         [TestCaseSource(nameof(TestCases))]
         public void GivenACompaniesHouseCompanyProfileClient_WhenGettingACompanyProfile(CompaniesHouseCompanyChargesClientTestCase testCase)
@@ -45,55 +41,86 @@ namespace CompaniesHouse.Tests.CompaniesHouseCompanyChargesClientTests
 
             _result = _client.GetCompanyChargesAsync("abc", 0, 25).Result;
 
-            _result.Data.ShouldBeEquivalentTo(_companyCharges);
+            _result.Data.ShouldBeEquivalentTo(_companyCharges, options => options.ComparingEnumsByName());
         }
 
 
         public static CompaniesHouseCompanyChargesClientTestCase[] TestCases()
         {
-            return new CompaniesHouseCompanyChargesClientTestCase[0];
-            //var allFilingCategories = EnumerationMappings.PossibleFilingCategories.Keys
-            //    .Select(x => new CompaniesHouseCompanyChargesClientTestCase
-            //    {
-            //        ChargeNumber = x,
-            //        ChargeCode= x,
-            //        MoreThanFourPersonsEntitled = x,
+            var allAssetsCeasedReleasedTypes = EnumerationMappings.PossibleAssetsCeasedReleasedType.Keys
+                .Select(x => new CompaniesHouseCompanyChargesClientTestCase
+                {
+                    Status = EnumerationMappings.PossibleStatusType.Keys.First(),
+                    Filing = EnumerationMappings.PossibleFilingType.Keys.First(),
+                    Classification = EnumerationMappings.PossibleClassificationType.Keys.First(),
+                    Particulars = EnumerationMappings.PossibleParticularsType.Keys.First(),
+                    SecuredDetails = EnumerationMappings.PossibleSecuredDetailsType.Keys.First(),
+                    AssetsCeasedReleased = x
+                });
 
 
-            //    });
+            var allStatusTypes = EnumerationMappings.PossibleStatusType.Keys
+              .Select(x => new CompaniesHouseCompanyChargesClientTestCase
+              {
+                  Status = x,
+                  Filing = EnumerationMappings.PossibleFilingType.Keys.First(),
+                  Classification = EnumerationMappings.PossibleClassificationType.Keys.First(),
+                  Particulars = EnumerationMappings.PossibleParticularsType.Keys.First(),
+                  SecuredDetails = EnumerationMappings.PossibleSecuredDetailsType.Keys.First(),
+                  AssetsCeasedReleased = EnumerationMappings.PossibleAssetsCeasedReleasedType.Keys.First()
+              });
+            var allFilingTypes = EnumerationMappings.PossibleFilingType.Keys
+            .Select(x => new CompaniesHouseCompanyChargesClientTestCase
+            {
+                Status = EnumerationMappings.PossibleStatusType.Keys.First(),
+                Filing = x,
+                Classification = EnumerationMappings.PossibleClassificationType.Keys.First(),
+                Particulars = EnumerationMappings.PossibleParticularsType.Keys.First(),
+                SecuredDetails = EnumerationMappings.PossibleSecuredDetailsType.Keys.First(),
+                AssetsCeasedReleased = EnumerationMappings.PossibleAssetsCeasedReleasedType.Keys.First()
+            });
 
-            //var allFilingSubcategories = EnumerationMappings.PossibleFilingSubcategories.Keys
-            //    .Select(x => new CompaniesHouseCompanyFilingHistoryClientTestCase
-            //    {
-            //        Category = EnumerationMappings.PossibleFilingCategories.Keys.First(),
-            //        Subcategory = x,
-            //        HistoryStatus = EnumerationMappings.PossibleFilingHistoryStatus.Keys.First(),
-            //        ResolutionCategory = EnumerationMappings.PossibleResolutionCategories.Keys.First()
-            //    });
+            var allClassificationTypes = EnumerationMappings.PossibleClassificationType.Keys
+          .Select(x => new CompaniesHouseCompanyChargesClientTestCase
+          {
+              Status = EnumerationMappings.PossibleStatusType.Keys.First(),
+              Filing = x,
+              Classification = x,
+              Particulars = EnumerationMappings.PossibleParticularsType.Keys.First(),
+              SecuredDetails = EnumerationMappings.PossibleSecuredDetailsType.Keys.First(),
+              AssetsCeasedReleased = EnumerationMappings.PossibleAssetsCeasedReleasedType.Keys.First()
+          });
+            var allParticulars = EnumerationMappings.PossibleParticularsType.Keys
+         .Select(x => new CompaniesHouseCompanyChargesClientTestCase
+         {
+             Status = EnumerationMappings.PossibleStatusType.Keys.First(),
+             Filing = EnumerationMappings.PossibleFilingType.Keys.First(),
+             Classification = EnumerationMappings.PossibleClassificationType.Keys.First(),
+             Particulars = x,
+             SecuredDetails = EnumerationMappings.PossibleSecuredDetailsType.Keys.First(),
+             AssetsCeasedReleased = EnumerationMappings.PossibleAssetsCeasedReleasedType.Keys.First()
+         });
 
-            //var allFilingHistoryStatus = EnumerationMappings.PossibleFilingHistoryStatus.Keys
-            //    .Select(x => new CompaniesHouseCompanyFilingHistoryClientTestCase
-            //    {
-            //        Category = EnumerationMappings.PossibleFilingCategories.Keys.First(),
-            //        Subcategory = EnumerationMappings.PossibleFilingSubcategories.Keys.First(),
-            //        HistoryStatus = x,
-            //        ResolutionCategory = EnumerationMappings.PossibleResolutionCategories.Keys.First()
-            //    });
+            var allSecuredDetailsTypes = EnumerationMappings.PossibleSecuredDetailsType.Keys
+       .Select(x => new CompaniesHouseCompanyChargesClientTestCase
+       {
+           Status = EnumerationMappings.PossibleStatusType.Keys.First(),
+           Filing = EnumerationMappings.PossibleFilingType.Keys.First(),
+           Classification = EnumerationMappings.PossibleClassificationType.Keys.First(),
+           Particulars = EnumerationMappings.PossibleParticularsType.Keys.First(),
+           SecuredDetails = x,
+           AssetsCeasedReleased = EnumerationMappings.PossibleAssetsCeasedReleasedType.Keys.First()
+       });
 
-            //var allFilingResolutionCategories = EnumerationMappings.PossibleResolutionCategories.Keys
-            //    .Select(x => new CompaniesHouseCompanyFilingHistoryClientTestCase
-            //    {
-            //        Category = EnumerationMappings.PossibleFilingCategories.Keys.First(),
-            //        Subcategory = EnumerationMappings.PossibleFilingSubcategories.Keys.First(),
-            //        HistoryStatus = EnumerationMappings.PossibleFilingHistoryStatus.Keys.First(),
-            //        ResolutionCategory = x
-            //    });
+            var allTestCases = allAssetsCeasedReleasedTypes
+                    .Concat(allStatusTypes)
+                    .Concat(allFilingTypes)
+                    .Concat(allClassificationTypes)
+                    .Concat(allParticulars)
+                    .Concat(allSecuredDetailsTypes)
+                    .ToArray();
 
-            //return allFilingCategories
-            //        .Concat(allFilingSubcategories)
-            //        .Concat(allFilingHistoryStatus)
-            //        .Concat(allFilingResolutionCategories)
-            //        .ToArray();
+            return allTestCases.Take(1).ToArray(); 
         }
 
     }

@@ -48,6 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tests\CompanyPersonsWithSignificantControlTests\CompanyPersonsWithSignificantControlTestBase.cs" />
+    <Compile Include="Tests\CompanyPersonsWithSignificantControlTests\CompanyPersonsWithSignificantControlTestsInvalid.cs" />
+    <Compile Include="Tests\CompanyPersonsWithSignificantControlTests\CompanyPersonsWithSignificantControlTestsValid.cs" />
+    <Compile Include="Tests\CompanyChargesTests\CompanyChargesTestBase.cs" />
+    <Compile Include="Tests\CompanyChargesTests\CompanyChargesTestsInvalid.cs" />
+    <Compile Include="Tests\CompanyChargesTests\CompanyChargesTestsValid.cs" />
     <Compile Include="Tests\CompanyInsolvencyInformationTests\CompanyInsolvencyInformationTests.cs" />
     <Compile Include="Tests\OfficerTests\OfficersTestBase.cs" />
     <Compile Include="Tests\OfficerTests\OfficersTestsInvalid.cs" />

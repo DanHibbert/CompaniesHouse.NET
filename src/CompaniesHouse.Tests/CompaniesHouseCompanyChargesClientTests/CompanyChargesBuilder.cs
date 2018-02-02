@@ -16,39 +16,54 @@ namespace CompaniesHouse.Tests.CompaniesHouseCompanyChargesClientTests
             fixture.Customizations.Add(new UniversalDateSpecimenBuilder<ChargeItem>(x => x.CreatedOn));
             fixture.Customizations.Add(new UniversalDateSpecimenBuilder<ChargeItem>(x => x.DeliveredOn));
 
-            
-            //fixture.Customizations.Add(new UniversalDateSpecimenBuilder<FilingHistoryItemAnnotation>(x => x.DateOfAnnotation));
-            //fixture.Customizations.Add(new UniversalDateSpecimenBuilder<FilingHistoryItemAssociatedFiling>(x => x.Date));
-            //fixture.Customizations.Add(new UniversalDateSpecimenBuilder<FilingHistoryItemResolution>(x => x.DateOfProcessing));
 
             var insolvencyCases = fixture.Build<InsolvencyCases>()
-               .CreateMany().ToList();
+               .CreateMany(2).ToList();
 
             var personsEntitled = fixture.Build<PersonsEntitled>()
-               .CreateMany().ToList();
-            var transactions = fixture.Build<Transaction>()
-               .CreateMany().ToList();
+               .CreateMany(2).ToList();
 
-            //var resolutions = fixture.Build<FilingHistoryItemResolution>()
-            //    .With(x => x.Category, testCase.ResolutionCategory)
-            //    .With(x => x.Subcategory, testCase.Subcategory)
-            //   .CreateMany().ToArray();
+            var transactions = fixture.Build<Transaction>()
+                .With(x => x.FilingType, testCase.Filing)
+               .CreateMany(2).ToList();
+
+            var securedDetails = fixture.Build<SecuredDetails>()
+                .With(x => x.Type, testCase.SecuredDetails)
+               .Create();
+
+            var link = fixture.Build<Links>()
+               .Create();
+
+
+            var classification = fixture.Build<Classification>()
+                .With(x => x.ClassificationType, testCase.Classification)
+                .Create();
+
+            var particular = fixture.Build<Particulars>()
+              .With(x => x.Type, testCase.Particulars)
+              .Create();
 
             var items = fixture.Build<ChargeItem>()
-                .With(x => x.ChargeCode, testCase.ChargeCode)
-                .With(x => x.ChargeNumber, testCase.ChargeNumber)
-                .With(x => x.MoreThanFourPersonsEntitled, testCase.MoreThanFourPersonsEntitled)
+                .With(x => x.StatusType, testCase.Status)
+                .With(x => x.AssetsCeasedReleasedType, testCase.AssetsCeasedReleased)
                 .With(x => x.InsolvencyCases, insolvencyCases)
                 .With(x => x.PersonsEntitled, personsEntitled)
                 .With(x => x.Transactions, transactions)
-                .CreateMany().ToList();
+                .With(x => x.Classification, classification)
+                .With(x => x.SecuredDetails, securedDetails)
+                .With(x => x.Particulars, particular)
+                .With(x => x.Links, link)
+                .CreateMany(2).ToList();
 
-            var filingHistory = fixture.Build<CompanyCharges>()
-                //.With(x => x.HistoryStatus, testCase.HistoryStatus)
+            var companyCharges = fixture.Build<CompanyCharges>()
                 .With(x => x.Items, items)
+                .With(x => x.PartSatisfiedCount,items.Count)
+                .With(x => x.SatisfiedCount,items.Count)
+                .With(x => x.TotalCount, items.Count)
+                .With(x => x.UnfilteredCount, items.Count)
                 .Create();
 
-            return filingHistory;
+            return companyCharges;
         }
     }
 }

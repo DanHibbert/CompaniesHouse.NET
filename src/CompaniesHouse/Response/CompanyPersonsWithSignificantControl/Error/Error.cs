@@ -8,7 +8,7 @@ namespace CompaniesHouse.Response.CompanyPersonsWithSignificantControl.Error
         [JsonProperty("error")]
         public string ErrorInfo { get; set; }
         [JsonProperty("error_values")]
-        public List<ErrorValues> ErrorValues { get; set; }
+        public Dictionary<string, string> ErrorValues { get; set; }
         [JsonProperty("location")]
         public string Location { get; set; }
         [JsonProperty("location_type")]
